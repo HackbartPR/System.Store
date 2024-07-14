@@ -22,4 +22,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+BuilderService.ApplyMigrations(app.Services);
+
+await app.RunAsync();

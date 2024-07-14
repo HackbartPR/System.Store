@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Service.Coupon.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using Service.Coupon.Infrastructure.Database;
 namespace Service.Coupon.Infrastructure.Migrations
 {
     [DbContext(typeof(DbCouponContext))]
-    partial class DbCouponContextModelSnapshot : ModelSnapshot
+    [Migration("20240713124539_Add_CouponSeeds")]
+    partial class Add_CouponSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
