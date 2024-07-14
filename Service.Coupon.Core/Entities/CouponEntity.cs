@@ -1,30 +1,24 @@
 ﻿using Service.Coupon.Core.Entities._Shared;
 
-namespace Service.Coupon.Core.Entities
+namespace Service.Coupon.Core.Entities;
+
+/// <summary>
+/// Representação de um cupom promocional
+/// </summary>
+public class CouponEntity : BaseEntity
 {
     /// <summary>
-    /// Representação de um cupom promocional
+    /// Código promocional
     /// </summary>
-    public class CouponEntity : BaseEntity
-    {
-        /// <summary>
-        /// Identificação
-        /// </summary>
-        public int Id { get; set; }
+    public string CouponCode { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Código promocional
-        /// </summary>
-        public string CouponCode { get; set; } = string.Empty;
+    /// <summary>
+    /// Desconto aplicado
+    /// </summary>
+    public double DiscountAmount { get; set; }
 
-        /// <summary>
-        /// Desconto aplicado
-        /// </summary>
-        public double DiscountAmount { get; set; }
-
-        /// <summary>
-        /// Caso exista algum valor mínimo atrelado
-        /// </summary>
-        public int MinAmount { get; set; }
-    }
+    /// <summary>
+    /// Caso exista algum valor mínimo atrelado
+    /// </summary>
+    public int MinAmount { get; set; }
 }
