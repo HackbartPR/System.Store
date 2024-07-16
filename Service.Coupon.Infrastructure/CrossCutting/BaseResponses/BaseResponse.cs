@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 
+/// <summary>
+/// Classe base para carregar as informações da requisição
+/// </summary>
 public class BaseResponse
 {
     public string RequestId { get; set; } = string.Empty;
@@ -20,6 +23,10 @@ public class BaseResponse
     public string Error {  get; set; } = string.Empty;
 }
 
+/// <summary>
+/// Classe Base para carregar as informações da requisição e o objeto de retorno
+/// </summary>
+/// <typeparam name="TData"></typeparam>
 public sealed class BaseResponse<TData> : BaseResponse
 {
     public TData? Data { get; set; }
