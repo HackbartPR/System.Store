@@ -1,20 +1,24 @@
-﻿namespace Service.Coupon.Application.DTOs
+﻿namespace Service.Coupon.Application.DTOs;
+
+public class CouponDto
 {
-    public class CouponDto
-    {
-        /// <summary>
-        /// Código promocional
-        /// </summary>
-        public string CouponCode { get; set; } = string.Empty;
+    /// <summary>
+    /// Identificação
+    /// </summary>
+    public int Id { get; set; }
 
-        /// <summary>
-        /// Desconto aplicado
-        /// </summary>
-        public double DiscountAmount { get; set; }
+    /// <summary>
+    /// Código promocional
+    /// </summary>
+    public string CouponCode { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Caso exista algum valor mínimo atrelado
-        /// </summary>
-        public int MinAmount { get; set; }
-    }
+    /// <summary>
+    /// Desconto aplicado
+    /// </summary>
+    public double DiscountAmount { get; set; }
+
+    /// <summary>
+    /// Caso exista algum valor mínimo atrelado
+    /// </summary>
+    public int MinAmount { get; set; }
 }
