@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Coupon.API.Controllers.Requests;
 using Service.Coupon.API.CrossCutting.BaseController;
 using Service.Coupon.Application.DTOs;
+using Service.Coupon.Application.Features.Delete;
 using Service.Coupon.Application.Features.Get;
 using Service.Coupon.Application.Features.Post;
 using Service.Coupon.Application.Features.Put;
@@ -87,6 +88,13 @@ public class CouponController : BaseController
         return Result(response);
     }
 
+    /// <summary>
+    /// Atualiza um cupom promocional
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPut("{id}")]
     public async Task<IActionResult> Put([FromRoute] int id, [FromBody] PutCouponRequest request, CancellationToken cancellationToken)
     {
@@ -102,6 +110,31 @@ public class CouponController : BaseController
                 DiscountAmount = request.DiscountAmount,
             };
 
+            response = await mediator.Send(command, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            response.BuildError(logger, ex);
+        }
+
+        return Result(response);
+    }
+
+    /// <summary>
+    /// remove um cupom promocional
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
+    {
+        BaseResponse<bool> response = new();
+
+        try
+        {
+            DeleteCouponCommand command = new(){ Id = id };
             response = await mediator.Send(command, cancellationToken);
         }
         catch (Exception ex)
