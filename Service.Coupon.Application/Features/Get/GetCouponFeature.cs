@@ -1,10 +1,11 @@
 ﻿using Service.Coupon.Application.DTOs;
-using Service.Coupon.Application.Features.Get.Request;
 using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 using Service.Coupon.Infrastructure.Database;
 using Service.Coupon.Infrastructure.CrossCutting.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using Service.Coupon.Application.Features.Get;
+using System.Net;
 
 namespace Service.Coupon.Application.Features.GetAll;
 
@@ -31,7 +32,7 @@ public class GetCouponFeature : IRequestHandler<GetCouponRequest, BasePagedRespo
     /// <returns></returns>
     public async Task<BasePagedResponse<CouponDto>> Handle(GetCouponRequest request, CancellationToken cancellationToken)
     {
-        return await dbContext.Coupons
+        BasePagedResponse<CouponDto> response = await dbContext.Coupons
             .AsNoTracking()
             .Where(c => 
                 (request.Id == null || c.Id == request.Id) &&
@@ -44,5 +45,11 @@ public class GetCouponFeature : IRequestHandler<GetCouponRequest, BasePagedRespo
                 MinAmount = c.MinAmount
             })
             .Paginate<CouponDto>(request, cancellationToken);
+
+        response.StatusCode = response.Data?.Count() == 0 ? HttpStatusCode.NotFound : response.StatusCode;
+        response.Success = true;
+        response.Message = "Consulta realizada com sucesso.";
+
+        return response;
     }
 }

@@ -3,7 +3,7 @@ using Service.Coupon.Application.DTOs;
 using Service.Coupon.Infrastructure.CrossCutting.BaseRequests;
 using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 
-namespace Service.Coupon.Application.Features.Get.Request;
+namespace Service.Coupon.Application.Features.Get;
 
 /// <summary>
 /// Representação da requisição para listar os cupons

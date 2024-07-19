@@ -21,6 +21,8 @@ public class BaseResponse
     public string Message { get; set; } = string.Empty;
 
     public string Error {  get; set; } = string.Empty;
+
+    public ICollection<ModelError> Errors { get; set; } = new HashSet<ModelError>();
 }
 
 /// <summary>
@@ -40,4 +42,20 @@ public sealed class BaseResponse<TData> : BaseResponse
         Message = message;
         StatusCode = statusCode;
     }
+}
+
+/// <summary>
+/// Classe carregará os erros de validação das requisições
+/// </summary>
+public class ModelError
+{
+    public ModelError() { }
+
+    public ModelError(string message)
+        => this.Message = message;
+
+    /// <summary>
+    /// Mensagem
+    /// </summary>
+    public string Message { get; set; } = string.Empty;
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
+using System.Net;
 
 namespace Service.Coupon.API.CrossCutting.BaseController;
 
@@ -10,7 +12,7 @@ namespace Service.Coupon.API.CrossCutting.BaseController;
 [Produces("application/json")]
 public class BaseController : Controller
 {
-    protected readonly ILogger _logger;
+    protected readonly ILogger logger;
 
     /// <summary>
     /// Construtor
@@ -18,7 +20,7 @@ public class BaseController : Controller
     /// <param name="logger"></param>
     /// <exception cref="ArgumentNullException"></exception>
     public BaseController(ILogger logger)
-        => _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
     /// <summary>
     /// Transforma o <seealso cref="BaseResponse"/> em um IActionResult
@@ -28,7 +30,7 @@ public class BaseController : Controller
     protected IActionResult Result(BaseResponse response)
     {
         response.RequestId = HttpContext.TraceIdentifier;
-        _logger.LogInformation("ResponseBody: {Body}", response);
+        logger.LogInformation("ResponseBody: {Body}", response);
 
         if (response.StatusCode.HasValue)
             return StatusCode((int)response.StatusCode, response);
@@ -37,5 +39,25 @@ public class BaseController : Controller
             return Ok(response);
 
         return StatusCode(500, response);
+    }
+
+    /// <summary>
+    /// Rotina é executada antes da requisição ficar disponível para uso no controller
+    /// </summary>
+    /// <param name="context"></param>
+    public override void OnActionExecuted(ActionExecutedContext context)
+    {
+        if (!context.ModelState.IsValid) 
+        {
+            BaseResponse response = new();
+            response.RequestId = HttpContext.TraceIdentifier;
+            response.Success = false;
+            response.Errors = ModelState.Values.SelectMany(e => e.Errors).Select(e => new ModelError(e.ErrorMessage)).ToList();
+            response.StatusCode = HttpStatusCode.BadRequest;
+
+            context.Result = Result(response);
+        }
+
+        base.OnActionExecuted(context);
     }
 }
