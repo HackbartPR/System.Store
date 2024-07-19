@@ -1,11 +1,14 @@
-﻿using Service.Coupon.Infrastructure.CrossCutting.BaseRequests;
+﻿using MediatR;
+using Service.Coupon.Application.DTOs;
+using Service.Coupon.Infrastructure.CrossCutting.BaseRequests;
+using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 
 namespace Service.Coupon.Application.Features.Get.Request;
 
 /// <summary>
 /// Representação da requisição para listar os cupons
 /// </summary>
-public class GetCouponRequest : BasePagedRequest
+public class GetCouponRequest : BasePagedRequest, IRequest<BasePagedResponse<CouponDto>>
 {
     /// <summary>
     /// Identificação

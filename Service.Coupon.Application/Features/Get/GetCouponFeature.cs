@@ -3,13 +3,15 @@ using Service.Coupon.Application.Features.Get.Request;
 using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 using Service.Coupon.Infrastructure.Database;
 using Service.Coupon.Infrastructure.CrossCutting.Extensions;
+using Microsoft.EntityFrameworkCore;
+using MediatR;
 
 namespace Service.Coupon.Application.Features.GetAll;
 
 /// <summary>
 /// Responsável por buscar os cupons filtrados
 /// </summary>
-public class GetCouponFeature
+public class GetCouponFeature : IRequestHandler<GetCouponRequest, BasePagedResponse<CouponDto>>
 {
     private readonly DbCouponContext dbContext;
 
@@ -27,9 +29,10 @@ public class GetCouponFeature
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BasePagedResponse<CouponDto>> GetCoupons(GetCouponRequest request, CancellationToken cancellationToken)
+    public async Task<BasePagedResponse<CouponDto>> Handle(GetCouponRequest request, CancellationToken cancellationToken)
     {
         return await dbContext.Coupons
+            .AsNoTracking()
             .Where(c => 
                 (request.Id == null || c.Id == request.Id) &&
                 (string.IsNullOrEmpty(request.CouponCode) || c.CouponCode.Equals(request.CouponCode)))

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Service.Coupon.Core.Settings;
 using Service.Coupon.Infrastructure.Database;
+using System.Reflection;
 
 namespace Service.Coupon.API.Services;
 
@@ -26,5 +27,14 @@ public static partial class BuilderService
 
         if (dbContext.Database.GetPendingMigrations().Count() > 0)
             dbContext.Database.Migrate();
-    } 
+    }
+    
+    public static IServiceCollection AddMediatrService(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([
+            Assembly.GetExecutingAssembly(),
+            AppDomain.CurrentDomain.Load("Service.Coupon.Application")]));
+
+        return services;
+    }
 }

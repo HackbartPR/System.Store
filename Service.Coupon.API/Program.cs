@@ -6,6 +6,8 @@ builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMediatrService();
+
 
 var app = builder.Build();
 
@@ -19,7 +21,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseRouting();
 app.MapControllers();
 
 BuilderService.ApplyMigrations(app.Services);
