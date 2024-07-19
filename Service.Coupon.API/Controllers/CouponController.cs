@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Service.Coupon.API.Controllers.Requests;
 using Service.Coupon.API.CrossCutting.BaseController;
 using Service.Coupon.Application.DTOs;
 using Service.Coupon.Application.Features.Get;
 using Service.Coupon.Application.Features.Post;
+using Service.Coupon.Application.Features.Put;
 using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 
 namespace Service.Coupon.API.Controllers;
@@ -36,7 +38,16 @@ public class CouponController : BaseController
 
         try
         {
-            response = await mediator.Send(request, cancellationToken);
+            GetCouponCommand command = new()
+            {
+                Id = request.Id,
+                CouponCode = request.CouponCode,
+                OrderByProperty = request.OrderByProperty,
+                Page = request.Page,
+                PageSize = request.PageSize
+            };
+
+            response = await mediator.Send(command, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -59,7 +70,39 @@ public class CouponController : BaseController
 
         try
         {
-            response = await mediator.Send(request, cancellationToken);
+            PostCouponCommand command = new()
+            {
+                MinAmount = request.MinAmount,
+                CouponCode = request.CouponCode,
+                DiscountAmount = request.DiscountAmount,
+            };
+
+            response = await mediator.Send(command, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            response.BuildError(logger, ex);
+        }
+
+        return Result(response);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put([FromRoute] int id, [FromBody] PutCouponRequest request, CancellationToken cancellationToken)
+    {
+        BaseResponse<CouponDto?> response = new();
+
+        try
+        {
+            PutCouponCommand command = new()
+            {
+                Id = id,
+                MinAmount = request.MinAmount,
+                CouponCode = request.CouponCode,
+                DiscountAmount = request.DiscountAmount,
+            };
+
+            response = await mediator.Send(command, cancellationToken);
         }
         catch (Exception ex)
         {
