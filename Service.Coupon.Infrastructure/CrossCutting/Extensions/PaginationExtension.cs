@@ -24,7 +24,7 @@ public static class PaginationExtension
         if (request.OrderByProperty.StartsWith('-'))
             query = query.OrderByPropertyDescending(request.OrderByProperty[1..]);
         else
-            query = query.OrderByPropertyDescending(request.OrderByProperty);
+            query = query.OrderByProperty(request.OrderByProperty);
 
         BasePagedResponse<TResponse> response = new();
         response.TotalRegisters = await query.CountAsync(cancellationToken);
