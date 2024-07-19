@@ -8,7 +8,7 @@ namespace Service.Coupon.Application.Features.Get;
 /// <summary>
 /// Representação da requisição para listar os cupons
 /// </summary>
-public class GetCouponRequest : BasePagedRequest, IRequest<BasePagedResponse<CouponDto>>
+public class GetCouponCommand : BasePagedRequest, IRequest<BasePagedResponse<CouponDto>>
 {
     /// <summary>
     /// Identificação

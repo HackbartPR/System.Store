@@ -12,7 +12,7 @@ namespace Service.Coupon.Application.Features.GetAll;
 /// <summary>
 /// Responsável por buscar os cupons filtrados
 /// </summary>
-public class GetCouponFeature : IRequestHandler<GetCouponRequest, BasePagedResponse<CouponDto>>
+public class GetCouponFeature : IRequestHandler<GetCouponCommand, BasePagedResponse<CouponDto>>
 {
     private readonly DbCouponContext dbContext;
 
@@ -30,7 +30,7 @@ public class GetCouponFeature : IRequestHandler<GetCouponRequest, BasePagedRespo
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BasePagedResponse<CouponDto>> Handle(GetCouponRequest request, CancellationToken cancellationToken)
+    public async Task<BasePagedResponse<CouponDto>> Handle(GetCouponCommand request, CancellationToken cancellationToken)
     {
         BasePagedResponse<CouponDto> response = await dbContext.Coupons
             .AsNoTracking()

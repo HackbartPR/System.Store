@@ -8,7 +8,7 @@ using System.Net;
 
 namespace Service.Coupon.Application.Features.Post;
 
-public class PostCouponFeature : IRequestHandler<PostCouponRequest, BaseResponse<CouponDto?>>
+public class PostCouponFeature : IRequestHandler<PostCouponCommand, BaseResponse<CouponDto?>>
 {
     private readonly DbCouponContext dbContext;
 
@@ -25,7 +25,7 @@ public class PostCouponFeature : IRequestHandler<PostCouponRequest, BaseResponse
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResponse<CouponDto?>> Handle(PostCouponRequest request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<CouponDto?>> Handle(PostCouponCommand request, CancellationToken cancellationToken)
     {
         if (await dbContext.Coupons.AnyAsync(c => c.CouponCode.Equals(request.CouponCode), cancellationToken))
             return new BaseResponse<CouponDto?>(null, false, "Código informado já está em uso", HttpStatusCode.Conflict);

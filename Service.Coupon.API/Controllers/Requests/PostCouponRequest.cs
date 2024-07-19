@@ -1,11 +1,8 @@
-﻿using MediatR;
-using Service.Coupon.Application.DTOs;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Service.Coupon.Application.Features.Post;
+namespace Service.Coupon.API.Controllers.Requests;
 
-public class PostCouponRequest : IRequest<BaseResponse<CouponDto?>>
+public class PostCouponRequest
 {
     /// <summary>
     /// Código promocional
