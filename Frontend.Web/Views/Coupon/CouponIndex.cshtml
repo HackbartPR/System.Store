@@ -1,0 +1,107 @@
+﻿@using Domain.DTOs;
+@using Domain.Responses.Base;
+@model BasePagedResponse<CouponDto?>
+@{
+	int pageNumber = ViewBag.PageNumber ?? 1;
+	int pageSize = ViewBag.PageSize ?? 10;
+}
+
+<div class="card shadow border-0 mt-4">
+	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h1 class="text-white">Coupons List</h1>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<div class="row pb-3">
+			<div class="col-6">
+			</div>
+			<div class="col-6 text-end">
+				<a class="btn btn-outline-primary"><i class="bi bi-plus-square"></i> Create New Coupon</a>
+
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Coupon Code
+					</th>
+					<th>
+						Discount Amount
+					</th>
+					<th>
+						Minimum Amount
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.Data != null)
+				{
+					@foreach (var item in Model.Data)
+					{
+						<tr>
+							<td>
+								@item?.CouponCode
+							</td>
+							<td>
+								@item?.DiscountAmount.ToString("c")
+							</td>
+							<td>
+								@item?.MinAmount.ToString("c")
+							</td>
+							<td>
+								<a class="btn btn-danger">
+									<i class="bi bi-trash"></i>
+								</a>
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+		<nav aria-label="Page navigation">
+			<ul class="pagination justify-content-center">
+				@if (Model.TotalPages > 1)
+				{
+					@if (pageNumber > 1)
+					{
+						<li class="page-item">
+							<a class="page-link" asp-action="CouponIndex" asp-route-pageNumber="@(pageNumber - 1)" asp-route-pageSize="10">Previous</a>
+						</li>
+					}
+					else
+					{
+						<li class="page-item disabled">
+							<span class="page-link">Previous</span>
+						</li>
+					}
+
+					@for (var i = 1; i <= Model.TotalPages; i++)
+					{
+						<li class="page-item @(i == pageNumber ? "active" : "")">
+							<a class="page-link" asp-action="CouponIndex" asp-route-pageNumber="@i" asp-route-pageSize="10">@i</a>
+						</li>
+					}
+
+					@if (pageNumber < Model.TotalPages)
+					{
+						<li class="page-item">
+							<a class="page-link" asp-action="CouponIndex" asp-route-pageNumber="@(pageNumber + 1)" asp-route-pageSize="10">Next</a>
+						</li>
+					}
+					else
+					{
+						<li class="page-item disabled">
+							<span class="page-link">Next</span>
+						</li>
+					}
+				}
+			</ul>
+		</nav>
+	</div>
+
+</div>

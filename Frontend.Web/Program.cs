@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 
 builder.Services.AddTransient<IBaseService, BaseService>();
-builder.Services.Configure<ServicesUrl>(builder.Configuration.GetSection("ServicesUrl:CouponAPI"));
+builder.Services.Configure<ServicesUrl>(builder.Configuration.GetSection("ServicesUrl"));
 builder.Services.AddTransient<ICouponService, CouponService>();
 
 var app = builder.Build();
