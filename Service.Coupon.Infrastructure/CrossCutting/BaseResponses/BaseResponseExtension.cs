@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Domain.Responses.Base;
+using Microsoft.Extensions.Logging;
 using Service.Coupon.Infrastructure.CrossCutting.Exceptions;
 using System.Runtime.CompilerServices;
 

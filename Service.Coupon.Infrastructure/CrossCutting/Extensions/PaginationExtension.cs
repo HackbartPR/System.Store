@@ -1,6 +1,6 @@
-﻿using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
+﻿using Domain.Requests.Base;
+using Domain.Responses.Base;
 using Microsoft.EntityFrameworkCore;
-using Service.Coupon.Infrastructure.CrossCutting.BaseRequests;
 using System.Linq.Expressions;
 using System.Reflection;
 

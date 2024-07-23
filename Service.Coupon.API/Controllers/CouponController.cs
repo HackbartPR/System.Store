@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using Domain.DTOs;
+using Domain.Requests.CouponService;
+using Domain.Responses.Base;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Service.Coupon.API.Controllers.Requests;
 using Service.Coupon.API.CrossCutting.BaseController;
-using Service.Coupon.Application.DTOs;
 using Service.Coupon.Application.Features.Delete;
 using Service.Coupon.Application.Features.Get;
 using Service.Coupon.Application.Features.Post;

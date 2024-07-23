@@ -1,11 +1,11 @@
-﻿using Service.Coupon.Application.DTOs;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
-using Service.Coupon.Infrastructure.Database;
+﻿using Service.Coupon.Infrastructure.Database;
 using Service.Coupon.Infrastructure.CrossCutting.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Service.Coupon.Application.Features.Get;
 using System.Net;
+using Domain.Responses.Base;
+using Domain.DTOs;
 
 namespace Service.Coupon.Application.Features.GetAll;
 

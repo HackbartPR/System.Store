@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Service.Coupon.Application.DTOs;
-using Service.Coupon.Infrastructure.CrossCutting.BaseRequests;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
+﻿using Domain.DTOs;
+using Domain.Requests.Base;
+using Domain.Responses.Base;
+using MediatR;
 
 namespace Service.Coupon.Application.Features.Get;
 

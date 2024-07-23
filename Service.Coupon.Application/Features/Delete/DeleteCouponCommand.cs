@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
+﻿using Domain.Responses.Base;
+using MediatR;
 
 namespace Service.Coupon.Application.Features.Delete;
 

@@ -1,7 +1,7 @@
-﻿using MediatR;
+﻿using Domain.Responses.Base;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Service.Coupon.Core.Entities;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 using Service.Coupon.Infrastructure.Database;
 using System.Net;
 

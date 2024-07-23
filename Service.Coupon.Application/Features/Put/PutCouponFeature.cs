@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Domain.DTOs;
+using Domain.Responses.Base;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Service.Coupon.Application.DTOs;
 using Service.Coupon.Core.Entities;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 using Service.Coupon.Infrastructure.Database;
 using System.Net;
 

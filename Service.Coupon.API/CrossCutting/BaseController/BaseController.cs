@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Responses.Base;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 using System.Net;
 
 namespace Service.Coupon.API.CrossCutting.BaseController;
