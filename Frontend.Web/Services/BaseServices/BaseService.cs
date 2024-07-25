@@ -36,7 +36,6 @@ public class BaseService : IBaseService
             HttpClient client = httpClientFactory.CreateClient();
 
             HttpRequestMessage message = new();
-            message.Headers.Add("Content-Type", "application/json");
             //token
 
             message.RequestUri = new Uri(request.Url);
@@ -53,9 +52,10 @@ public class BaseService : IBaseService
 
             var response = await client.SendAsync(message, cancellationToken);
             BaseResponse<TResponse?>? baseResponse = new();
-            
+
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            baseResponse = await JsonSerializer.DeserializeAsync<BaseResponse<TResponse?>>(contentStream, cancellationToken: cancellationToken);
+            baseResponse = await JsonSerializer.DeserializeAsync<BaseResponse<TResponse?>>(contentStream, options, cancellationToken);
 
             if (baseResponse == null)
                 return new BaseResponse<TResponse?>()
@@ -110,13 +110,9 @@ public class BaseService : IBaseService
             var response = await client.SendAsync(message, cancellationToken);
             BasePagedResponse<TResponse?>? baseResponse = new();
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            baseResponse = await JsonSerializer.DeserializeAsync<BasePagedResponse<TResponse?>>(contentStream, options, cancellationToken: cancellationToken);
+            baseResponse = await JsonSerializer.DeserializeAsync<BasePagedResponse<TResponse?>>(contentStream, options, cancellationToken);
 
             if (baseResponse == null)
                 return new BasePagedResponse<TResponse?>()
