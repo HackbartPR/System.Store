@@ -72,6 +72,8 @@ public class AuthController : BaseController
 		{
 			LoginUserCommand command = new()
 			{
+				UserName = request.UserName,
+				Password = request.Password,
 			};
 
 			response = await mediator.Send(command, cancellationToken);

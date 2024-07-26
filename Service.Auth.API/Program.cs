@@ -3,7 +3,7 @@ using Service.Auth.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSettings(builder.Configuration);
+builder.Services.ConfigureDIContainer(builder.Configuration);
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddIdentity();
 builder.Services.AddMediatrService();

@@ -1,6 +1,7 @@
 ﻿using Domain.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Service.Auth.Application.Services.AuthTokenGenerator;
 using Service.Auth.Core.Entities;
 using Service.Auth.Infrastructure;
 using System.Reflection;
@@ -50,10 +51,12 @@ public static class ApplicationService
 		return services;
 	}
 
-	public static IServiceCollection AddSettings(this IServiceCollection services, IConfiguration config)
+	public static IServiceCollection ConfigureDIContainer(this IServiceCollection services, IConfiguration config)
 	{
 		services.Configure<DatabaseSettings>(config.GetSection(DatabaseSettings.Identifier));
 		services.Configure<AuthenticationSettings>(config.GetSection(AuthenticationSettings.Identifier));
+
+		services.AddTransient<ITokenGenerator, JwtTokenGenerator>();
 
 		return services;
 	}
