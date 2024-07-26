@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service.Coupon.Application\Service.Coupon.Application.csproj" />
+    <ProjectReference Include="..\Service.Auth.Application\Service.Auth.Application.csproj" />
   </ItemGroup>
 
 </Project>

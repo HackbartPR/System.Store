@@ -1,4 +1,4 @@
-﻿using Domain.Responses.Base;
+﻿using Domain.Responses;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Service.Coupon.Core.Entities;

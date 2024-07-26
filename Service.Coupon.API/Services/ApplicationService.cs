@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Service.Coupon.Core.Settings;
+﻿using Domain.Settings;
+using Microsoft.EntityFrameworkCore;
 using Service.Coupon.Infrastructure.Database;
 using System.Reflection;
 
 namespace Service.Coupon.API.Services;
 
-public static partial class BuilderService
+public static partial class ApplicationService
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config)
     {

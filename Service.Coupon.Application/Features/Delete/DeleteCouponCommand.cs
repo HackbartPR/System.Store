@@ -1,4 +1,4 @@
-﻿using Domain.Responses.Base;
+﻿using Domain.Responses;
 using MediatR;
 
 namespace Service.Coupon.Application.Features.Delete;

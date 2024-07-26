@@ -1,14 +1,13 @@
-﻿using Domain.DTOs;
-using Domain.Requests.CouponService;
-using Domain.Responses.Base;
+﻿using Domain.DTOs.Coupon;
+using Domain.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Service.Coupon.API.CrossCutting.BaseController;
+using Service.Coupon.API.CrossCutting;
+using Service.Coupon.API.Requests;
 using Service.Coupon.Application.Features.Delete;
 using Service.Coupon.Application.Features.Get;
 using Service.Coupon.Application.Features.Post;
 using Service.Coupon.Application.Features.Put;
-using Service.Coupon.Infrastructure.CrossCutting.BaseResponses;
 
 namespace Service.Coupon.API.Controllers;
 

@@ -1,11 +1,12 @@
-﻿using Domain.DTOs.Coupon;
-using Domain.Responses;
-using MediatR;
+﻿namespace Domain.DTOs.Coupon;
 
-namespace Service.Coupon.Application.Features.Post;
-
-public class PostCouponCommand : IRequest<BaseResponse<CouponDto?>>
+public class CouponDto
 {
+    /// <summary>
+    /// Identificação
+    /// </summary>
+    public int Id { get; set; }
+
     /// <summary>
     /// Código promocional
     /// </summary>
@@ -19,5 +20,5 @@ public class PostCouponCommand : IRequest<BaseResponse<CouponDto?>>
     /// <summary>
     /// Caso exista algum valor mínimo atrelado
     /// </summary>
-    public int? MinAmount { get; set; } = 0;
+    public int MinAmount { get; set; }
 }

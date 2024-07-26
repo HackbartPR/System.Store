@@ -1,14 +1,11 @@
-﻿using Domain.DTOs.Coupon;
-using Domain.Requests;
-using Domain.Responses;
-using MediatR;
+﻿using Domain.Requests;
 
-namespace Service.Coupon.Application.Features.Get;
+namespace Service.Coupon.API.Requests;
 
 /// <summary>
 /// Representação da requisição para listar os cupons
 /// </summary>
-public class GetCouponCommand : BasePagedRequest, IRequest<BasePagedResponse<CouponDto>>
+public class GetCouponRequest : BasePagedRequest
 {
     /// <summary>
     /// Identificação

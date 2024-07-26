@@ -1,5 +1,5 @@
-﻿using Domain.DTOs;
-using Domain.Responses.Base;
+﻿using Domain.DTOs.Coupon;
+using Domain.Responses;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Service.Coupon.Core.Entities;
