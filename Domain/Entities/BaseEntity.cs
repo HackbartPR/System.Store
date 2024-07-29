@@ -1,4 +1,4 @@
-﻿namespace Service.Coupon.Core.Entities._Shared;
+﻿namespace Domain.Entities;
 
 public abstract class BaseEntity
 {

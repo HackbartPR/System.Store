@@ -36,7 +36,7 @@ public class GetCouponFeature : IRequestHandler<GetCouponCommand, BasePagedRespo
             .AsNoTracking()
             .Where(c => 
                 (request.Id == null || c.Id == request.Id) &&
-                (string.IsNullOrEmpty(request.CouponCode) || c.CouponCode.Equals(request.CouponCode)))
+                (string.IsNullOrEmpty(request.CouponCode) || c.CouponCode.Contains(request.CouponCode)))
             .Select(c => new CouponDto
             {
                 Id = c.Id,

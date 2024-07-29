@@ -1,4 +1,4 @@
-﻿using Service.Coupon.Core.Entities._Shared;
+﻿using Domain.Entities;
 
 namespace Service.Coupon.Core.Entities;
 
