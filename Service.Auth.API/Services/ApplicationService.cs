@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Service.Auth.Application.Services.AuthTokenGenerator;
+using Service.Auth.Application.Startup.Seeds;
 using Service.Auth.Core.Entities;
 using Service.Auth.Infrastructure;
 using System.Reflection;
@@ -57,6 +58,8 @@ public static class ApplicationService
 		services.Configure<AuthenticationSettings>(config.GetSection(AuthenticationSettings.Identifier));
 
 		services.AddTransient<ITokenGenerator, JwtTokenGenerator>();
+
+		services.AddHostedService<InsertRoleSeeds>();
 
 		return services;
 	}

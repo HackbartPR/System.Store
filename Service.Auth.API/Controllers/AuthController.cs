@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Service.Auth.API.CrossCutting;
 using Service.Auth.API.Requests;
+using Service.Auth.Application.Features.AssignRole;
 using Service.Auth.Application.Features.LoginUser;
 using Service.Auth.Application.Features.RegisterUser;
 
@@ -74,6 +75,35 @@ public class AuthController : BaseController
 			{
 				UserName = request.UserName,
 				Password = request.Password,
+			};
+
+			response = await mediator.Send(command, cancellationToken);
+		}
+		catch (Exception ex)
+		{
+			response.BuildError(logger, ex);
+		}
+
+		return Result(response);
+	}
+
+	/// <summary>
+	/// Vincula um usuário a um role específico
+	/// </summary>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[HttpPost("assign-role")]
+	public async Task<IActionResult> AssignRole(AssignRoleRequest request, CancellationToken cancellationToken)
+	{
+		BaseResponse<bool> response = new();
+
+		try
+		{
+			AssignRoleCommand command = new()
+			{
+				Email = request.Email,
+				RoleName = request.RoleName,
 			};
 
 			response = await mediator.Send(command, cancellationToken);
