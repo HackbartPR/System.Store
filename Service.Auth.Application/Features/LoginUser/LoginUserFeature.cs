@@ -44,7 +44,7 @@ public class LoginUserFeature : IRequestHandler<LoginUserCommand, BaseResponse<L
 		if (!result)
 			return new BaseResponse<LoginUserDto?>(null, false, "Usuário ou senha não encontrado.", HttpStatusCode.NotFound);
 
-		SecurityTokenDescriptor tokenDescriptor = tokenGenerator.GetAccessToken(user);
+		SecurityTokenDescriptor tokenDescriptor = await tokenGenerator.GetAccessToken(user);
 
 		return new BaseResponse<LoginUserDto?>(new LoginUserDto()
 		{
