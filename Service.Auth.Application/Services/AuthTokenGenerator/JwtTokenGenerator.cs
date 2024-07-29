@@ -1,4 +1,5 @@
 ﻿using Domain.Settings;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Service.Auth.Core.Entities;
@@ -14,27 +15,36 @@ namespace Service.Auth.Application.Services.AuthTokenGenerator;
 public class JwtTokenGenerator : ITokenGenerator
 {
 	private readonly AuthenticationSettings settings;
+	private readonly UserManager<ApplicationUser> userManager;
 
 	/// <summary>
 	/// Construtor
 	/// </summary>
 	/// <param name="options"></param>
+	/// <param name="userManager"></param>
 	/// <exception cref="ArgumentNullException"></exception>
-	public JwtTokenGenerator(IOptions<AuthenticationSettings> options)
-		=>this.settings = options.Value ?? throw new ArgumentNullException(nameof(options));
+	public JwtTokenGenerator(IOptions<AuthenticationSettings> options, UserManager<ApplicationUser> userManager)
+	{
+		this.settings = options.Value ?? throw new ArgumentNullException(nameof(options));
+		this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+	}
 
 	/// <summary>
 	/// Responsável por criar o Descriptor do token
 	/// </summary>
 	/// <param name="user"></param>
 	/// <returns></returns>
-	public SecurityTokenDescriptor GetAccessToken(ApplicationUser user)
+	public async Task<SecurityTokenDescriptor> GetAccessToken(ApplicationUser user)
 	{
+		var userRoles = await userManager.GetRolesAsync(user);
+
 		List<Claim> claims = new()
 		{
 			new Claim(JwtRegisteredClaimNames.Name, user.Name),
 			new Claim(JwtRegisteredClaimNames.Email, user.Email!)
 		};
+
+		claims.AddRange(userRoles.Select(r => new Claim(ClaimTypes.Role, r)));
 
 		byte[] key = Encoding.ASCII.GetBytes(settings.SecretKey);
 

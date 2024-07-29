@@ -13,7 +13,7 @@ public interface ITokenGenerator
 	/// </summary>
 	/// <param name="user"></param>
 	/// <returns></returns>
-	SecurityTokenDescriptor GetAccessToken(ApplicationUser user);
+	Task<SecurityTokenDescriptor> GetAccessToken(ApplicationUser user);
 
 	/// <summary>
 	/// Responsável por criar o token

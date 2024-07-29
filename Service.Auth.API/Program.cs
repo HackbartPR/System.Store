@@ -7,6 +7,7 @@ builder.Services.ConfigureDIContainer(builder.Configuration);
 builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddIdentity();
 builder.Services.AddMediatrService();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

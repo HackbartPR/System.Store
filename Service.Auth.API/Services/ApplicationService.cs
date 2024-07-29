@@ -1,11 +1,14 @@
 ﻿using Domain.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Service.Auth.Application.Services.AuthTokenGenerator;
 using Service.Auth.Application.Startup.Seeds;
 using Service.Auth.Core.Entities;
 using Service.Auth.Infrastructure;
 using System.Reflection;
+using System.Text;
 
 namespace Service.Auth.API.Services;
 
@@ -60,6 +63,33 @@ public static class ApplicationService
 		services.AddTransient<ITokenGenerator, JwtTokenGenerator>();
 
 		services.AddHostedService<InsertRoleSeeds>();
+
+		return services;
+	}
+
+	public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration config)
+	{
+		var tokenSettings = new AuthenticationSettings();
+		config.GetSection(AuthenticationSettings.Identifier).Bind(tokenSettings);
+
+		services.AddAuthentication(options =>
+		{
+			options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+		}).AddJwtBearer(options =>
+		{
+			options.TokenValidationParameters = new TokenValidationParameters()
+			{
+				ValidateAudience = true,
+				ValidateIssuer = true,
+				ValidateLifetime = true,
+				ValidateIssuerSigningKey = true,
+
+				ValidAudience = tokenSettings.Audience,
+				ValidIssuer = tokenSettings.Issuer,
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(tokenSettings.SecretKey))
+			};
+		});
 
 		return services;
 	}

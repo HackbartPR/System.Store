@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs.Auth;
 using Domain.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Auth.API.CrossCutting;
 using Service.Auth.API.Requests;
@@ -93,8 +94,9 @@ public class AuthController : BaseController
 	/// <param name="request"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
+	[Authorize]
 	[HttpPost("assign-role")]
-	public async Task<IActionResult> AssignRole(AssignRoleRequest request, CancellationToken cancellationToken)
+	public async Task<IActionResult> AssignRole([FromBody] AssignRoleRequest request, CancellationToken cancellationToken)
 	{
 		BaseResponse<bool> response = new();
 
