@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Service.ShoppingCart.Application\Service.ShoppingCart.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

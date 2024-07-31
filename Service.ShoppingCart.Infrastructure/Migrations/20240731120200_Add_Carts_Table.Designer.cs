@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Service.ShoppingCart.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using Service.ShoppingCart.Infrastructure.Database;
 namespace Service.ShoppingCart.Infrastructure.Migrations
 {
     [DbContext(typeof(DbCartContext))]
-    partial class DbCartContextModelSnapshot : ModelSnapshot
+    [Migration("20240731120200_Add_Carts_Table")]
+    partial class Add_Carts_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,11 +66,7 @@ namespace Service.ShoppingCart.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Open")
-                        .HasColumnType("bit");
-
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

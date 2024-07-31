@@ -12,8 +12,8 @@ using Service.ShoppingCart.Infrastructure.Database;
 namespace Service.ShoppingCart.Infrastructure.Migrations
 {
     [DbContext(typeof(DbCartContext))]
-    [Migration("20240730192716_Add_Cart_Tables")]
-    partial class Add_Cart_Tables
+    [Migration("20240731130419_Add_OpenColumn_To_CartTable")]
+    partial class Add_OpenColumn_To_CartTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,38 +24,6 @@ namespace Service.ShoppingCart.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Domain.DTOs.Coupon.ProductDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductDto");
-                });
 
             modelBuilder.Entity("Service.ShoppingCart.Core.Entities.CartDetailEntity", b =>
                 {
@@ -81,8 +49,6 @@ namespace Service.ShoppingCart.Infrastructure.Migrations
 
                     b.HasIndex("CartHeaderId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("CartDetails");
                 });
 
@@ -100,7 +66,11 @@ namespace Service.ShoppingCart.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Open")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -116,15 +86,7 @@ namespace Service.ShoppingCart.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.DTOs.Coupon.ProductDto", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CartHeader");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Service.ShoppingCart.Core.Entities.CartEntity", b =>

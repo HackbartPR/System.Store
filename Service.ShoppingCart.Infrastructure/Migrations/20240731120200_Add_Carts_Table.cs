@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Service.ShoppingCart.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_Cart_Tables : Migration
+    public partial class Add_Carts_Table : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,12 +44,6 @@ namespace Service.ShoppingCart.Infrastructure.Migrations
                         name: "FK_CartDetails_Carts_CartHeaderId",
                         column: x => x.CartHeaderId,
                         principalTable: "Carts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CartDetails_ProductDto_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "ProductDto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });

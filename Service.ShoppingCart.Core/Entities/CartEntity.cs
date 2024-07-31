@@ -5,9 +5,11 @@ namespace Service.ShoppingCart.Core.Entities;
 
 public class CartEntity : BaseEntity
 {
-	public string? UserId { get; set; }
+	public string UserId { get; set; } = string.Empty;
 
 	public string? CouponCode { get; set; }
+
+	public bool Open { get; set; }
 
 	[NotMapped]
 	public double Discount { get; set; }

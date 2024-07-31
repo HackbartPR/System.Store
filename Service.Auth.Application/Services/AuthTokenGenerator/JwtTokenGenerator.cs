@@ -40,8 +40,9 @@ public class JwtTokenGenerator : ITokenGenerator
 
 		List<Claim> claims = new()
 		{
+			new Claim(JwtRegisteredClaimNames.Sub, user.Id),
 			new Claim(JwtRegisteredClaimNames.Name, user.Name),
-			new Claim(JwtRegisteredClaimNames.Email, user.Email!)
+			new Claim(JwtRegisteredClaimNames.Email, user.Email!),
 		};
 
 		claims.AddRange(userRoles.Select(r => new Claim(ClaimTypes.Role, r)));
